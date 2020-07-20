@@ -38,8 +38,9 @@ class Form extends Component {
      <div className="container-fluid text-center">    
        <div className="row content">
          <div className="col-sm-8 text-left"> 
-       
-           <Switch>
+             <Search />
+            <Switch>
+
                       <Route exact path="/Search" component={Search}></Route>
                      <Route exact path="/List" component={List}></Route>
                      <Route exact path="/TextBook" component={TextBook}></Route>
