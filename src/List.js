@@ -6,11 +6,16 @@ export default class List extends React.Component {
         super(props);
         this.state={  
                        movie_array:[],
-                       isChecked: true,
-                        val:'',
-                       s:'',
-                        y:'',
-      
+                       storage_list:'',
+                       val: '',
+                      header: 'Movie List',
+                       form: {
+                           
+                           s: '',
+                           y: '',
+                           apikey: "2c96c239"
+                            }, 
+                        
                     }
  
         console.log(props)
@@ -18,32 +23,36 @@ export default class List extends React.Component {
 
 
 
-       add_favourite = (event) => {
-                       this.setState({ isChecked: !this.state.isChecked});
-                    //    alert(this.state.isChecked)
-                        if(this.state.isChecked == false)
-                        {
-                            localStorage.setItem('myValueInLocalStorage', event.target.value);
-                        }else{
-                           localStorage.setItem('myValueInLocalStorage', '');
-                        }
-                    }
+    add_favourite = (e) => {
+       
+        if (e.target.checked) {
+            //append to array
+            this.setState({
+                storage_list: this.state.storage_list.concat(e.target.value)
+            })
+        } else {
+            //remove from array
+            this.setState({
+                storage_list: this.state.storage_list.filter(function (val) { return val !== e.target.value })
+            })
+        }
+        console.log(this.state.storage_list)
+    }
   
 
       FormData = (event) => {
 
-                           this.setState({  [event.target.name]: event.target.value })
+          this.setState({form: Object.assign({}, this.state.form,
+              { [event.target.name]: event.target.value })
+              
+          })
+          localStorage.setItme("favourite_list", this.state.form);
                            }
 
       handleSubmit = (e) => {
-                       e.preventDefault();
-                        let params = {
-                                       "s": this.state.s,
-                                       'y':this.state.y,
-                                        "apikey": "2c96c239"
-                                     };
-
-                         let query = Object.keys(params).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k])).join('&');
+          e.preventDefault();
+          console.log(this.state.form)
+          let query = Object.keys(this.state.form).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(this.state.form[k])).join('&');
                          let url = 'http://www.omdbapi.com/?' + query;
                          fetch(url)
                               .then(data => {
@@ -66,17 +75,19 @@ export default class List extends React.Component {
 
     return (
             <div>
-                  <div className="row">
+            <div className="row">
+                <fieldset> <legend>Moive List</legend>
+                </fieldset>
                           <div className="col-lg-12">
                               <div className="bs-component">
                                   <form className="well form-search" id="search-by-title-form" onsubmit="return false;">
                                   <fieldset> <legend></legend>
                                   </fieldset>
                                   <div>
-                                      <label className="control-label" for="s">Title:</label>
+                                      <label className="control-label" >Title:</label>
                                       <input type="text" id="s" name="s" className="input-small" onChange={ this.FormData } />
                                       &nbsp;&nbsp;
-                                      <label className="control-label" for="y">Year:</label>
+                                      <label className="control-label" >Year:</label>
                                       <input type="text" id="y" name="y" className="input-small" onChange={ this.FormData }  />
                                       &nbsp;&nbsp;
                                       
@@ -103,9 +114,9 @@ export default class List extends React.Component {
                                                           (
                                               <tr>
                                                   <td><input type="checkbox"
-                                                        checked={this.state.isChecked}
-                                                        onChange={this.toggleChange}
-                                                        value={this.state.movie_array.Title}        />
+                                                      checked={this.state.isChecked}
+                                                      onChange={this.add_favourite}
+                                                      value={form_data.Title}        />
                                                    </td>
                                                   <td>{form_data.Title}</td>
                                                   <td>{form_data.Year}</td>

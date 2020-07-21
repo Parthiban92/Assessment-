@@ -12,42 +12,28 @@ export default class TextBook extends React.Component {
     }
 
     render() {
-
-        return (
-            <div>
-              
-                <ul>
-                    {newdata.map((todo, index) => (
-
-                       
-
-                        Object.values(todo).map((val, key) => (
-                          
-
-                            Object.values(val).map((val2, key1) => (
-                                Object.values(val2).map((val3, key3) => (
-                                   
-                                    
-                                        Object.values(val3).map((todos, index) => (
-                                            <li>{todos}</li>
-                                            ))
-                                    
-
-                                ))
-                            ))
-                            ))
+     //   console.log(newdata)
+        return <div>
+            <ul>
+                <li>
+                    {newdata.map(k => {
+                        //console.log(k)
+                        {
+                            Object.keys(k).map(ch => {
+                               // console.log(ch)
+                              
+                                    {Object.keys(ch).map(l => {
+                                       // return <li>{{l}}</li>
+                                    })}
                                
-                            
 
-                                
-                        
-                        
-                    ))}
-                </ul>
-                
+                            })}
+                    })}
+                </li>
+            </ul>
             </div>
 
-        );
+     
     }
 
 }

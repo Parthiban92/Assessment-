@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import List from './List';
-import Search from './Search';
+import MovieList from './List';
+import UserList from './Search';
 import TextBook from './TextBook';
 import {
   BrowserRouter as Router,
@@ -14,7 +14,9 @@ class Form extends Component {
 
     constructor(props){
         super(props);
-
+        this.state = {
+            header: 'Assesesment',
+        }
        // console.log(socialMediaList)
     }
 
@@ -26,24 +28,18 @@ class Form extends Component {
         <Router>
     <div>
 
-
-      <div className="container-fluid">
-          <div className="topnav">
-          <a  href="#home">Movie</a>
-           
-      </div>
    
     </div>
 
      <div className="container-fluid text-center">    
        <div className="row content">
          <div className="col-sm-8 text-left"> 
-             <Search />
+           
             <Switch>
-
-                      <Route exact path="/Search" component={Search}></Route>
-                     <Route exact path="/List" component={List}></Route>
-                     <Route exact path="/TextBook" component={TextBook}></Route>
+                     <Route exact path="/" render={() => { return (<Redirect to="/Search" />)}}/>
+                       <Route exact path="/UserList" component={UserList}></Route>
+                      <Route exact path="/MovieList" component={MovieList}></Route>
+                     <Route exact path="/Search" component={TextBook}></Route>
            </Switch>
         </div>
     </div>

@@ -6,7 +6,7 @@ constructor(){
 
 super();
 
-this.state={ search_value:'', userList: [] }
+    this.state = { search_value: '', userList: [], header: 'User List', }
 
 }
 
@@ -32,15 +32,18 @@ this.setState({ search_value:event.target.value })
   render() {
 
     return (
-      <div>
-       <input type ="text" onChange={this.handleChange}/>
-        <ul>
-                {this.state.userList.filter(user => user.title.toLowerCase().startsWith(this.state.search_value) && this.state.search_value!='').map(filteredPerson => (
-        <li>
-          {filteredPerson.title}
-        </li>
-      ))}
-       </ul>
+        <div>
+            <fieldset> <legend>Type To Search List</legend>
+            </fieldset>
+            <label className="control-label" for="s">Title:</label>
+                   <input type ="text" onChange={this.handleChange}/>
+                <ul>
+                  {this.state.userList.filter(user => user.title.toLowerCase().startsWith(this.state.search_value) && this.state.search_value!='').map(filteredPerson => (
+                    <li>
+                      {filteredPerson.title}
+                    </li>
+                  ))}
+               </ul>
        </div> 
         
     );
