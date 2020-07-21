@@ -28,6 +28,12 @@ class Form extends Component {
         <Router>
     <div>
 
+
+      <div className="container-fluid">
+                    <div className="topnav">
+                        <h6 style={{ textAlignVertical: "center", textAlign: "center", }}>Assessment</h6>
+           
+      </div>
    
     </div>
 
@@ -36,7 +42,7 @@ class Form extends Component {
          <div className="col-sm-8 text-left"> 
            
             <Switch>
-                     <Route exact path="/" render={() => { return (<Redirect to="/Search" />)}}/>
+                                <Route exact path="/" render={() => { return (<Redirect to="/UserList" />)}}/>
                        <Route exact path="/UserList" component={UserList}></Route>
                       <Route exact path="/MovieList" component={MovieList}></Route>
                      <Route exact path="/Search" component={TextBook}></Route>
